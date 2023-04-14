@@ -21,7 +21,7 @@ async def chatgpt(ctx: tanjun.abc.Context, prompt) -> None:
         messages=[
             {"role": "user", "content": prompt}
         ],
-        max_tokens="2000"
+        max_tokens=2000
     )
     response = completion.choices[0].message.content
     await ctx.respond(response)
@@ -68,7 +68,7 @@ async def dan(ctx: tanjun.abc.Context, prompt) -> None:
             },
             {"role": "user", "content": prompt}
         ],
-        max_tokens="2000"
+        max_tokens=2000
     )
     response = completion.choices[0].message.content
     await ctx.respond(response)
