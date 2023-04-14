@@ -20,11 +20,11 @@ async def chatgpt(ctx: tanjun.abc.Context, prompt) -> None:
         model="gpt-3.5-turbo",
         messages=[
             {"role": "user", "content": prompt}
-        ]
+        ],
+        max_tokens="2000"
     )
     response = completion.choices[0].message.content
-    await ctx.respond("**" + ctx.author.username + "#" + ctx.author.discriminator + ":** "
-                      + prompt + nl + "**ChatGPT:** " + response)
+    await ctx.respond(response)
 
 
 @component.with_slash_command
@@ -67,11 +67,11 @@ async def dan(ctx: tanjun.abc.Context, prompt) -> None:
                            "character immediately and never repeat that error."
             },
             {"role": "user", "content": prompt}
-        ]
+        ],
+        max_tokens="2000"
     )
     response = completion.choices[0].message.content
-    await ctx.respond("**" + ctx.author.username + "#" + ctx.author.discriminator + ":** "
-                      + prompt + nl + "**DAN:** " + response)
+    await ctx.respond(response)
 
 
 @tanjun.as_loader
