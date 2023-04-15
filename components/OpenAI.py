@@ -14,7 +14,7 @@ component = tanjun.Component()
 
 @component.with_slash_command
 @tanjun.with_str_slash_option("prompt", "used to generate a response from the AI language model.")
-@tanjun.as_slash_command("chatgpt", "generates an AI ChatGPT response based on the prompt", always_defer=True)
+@tanjun.as_slash_command("chatgpt", "generates an AI ChatGPT response based on the prompt.", always_defer=True)
 async def chatgpt(ctx: tanjun.abc.Context, prompt) -> None:
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -29,7 +29,7 @@ async def chatgpt(ctx: tanjun.abc.Context, prompt) -> None:
 
 @component.with_slash_command
 @tanjun.with_str_slash_option("prompt", "used to generate a response from the AI language model.")
-@tanjun.as_slash_command("dan", "generates an AI DAN response based on the prompt", always_defer=True)
+@tanjun.as_slash_command("dan", "generates an AI DAN response based on the prompt.", always_defer=True)
 async def dan(ctx: tanjun.abc.Context, prompt) -> None:
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -72,6 +72,19 @@ async def dan(ctx: tanjun.abc.Context, prompt) -> None:
     )
     response = completion.choices[0].message.content
     await ctx.respond(response)
+
+
+@component.with_slash_command
+@tanjun.with_str_slash_option("prompt", "used to generate an image from an AI.")
+@tanjun.as_slash_command("image", "generates an image by an AI based on the prompt.", always_defer=True)
+async def image(ctx: tanjun.abc.Context, prompt) -> None:
+    response = openai.Image.create(
+        prompt=prompt,
+        n=1,
+        size="1024x1024"
+    )
+    image_url = response['data'][0]['url']
+    await ctx.respond(image_url)
 
 
 @tanjun.as_loader

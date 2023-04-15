@@ -16,15 +16,16 @@ def build_bot() -> GatewayBot:
     return bot
 
 
+# noinspection PyTypeChecker
 def make_client(bot: hikari.GatewayBot) -> tanjun.Client:
     client = (
         tanjun.Client.from_gateway_bot(
             bot,
             mention_prefix=True,
-            set_global_commands=792948222946443274
+            declare_global_commands=458226118617464845
         )
-    ).add_prefix("!")
+    )
 
-    client.load_modules("components.chat_completion")
+    client.load_modules("components.OpenAI")
 
     return client
